@@ -37,7 +37,7 @@ boat2 = imread('../Data/boat2.jpg');
 
 % let's resize boat2 so that it is the same size as boat1
 [h, w, n] = size(boat1);
-boat2  = imresize(boat2, [h w]);
+boat2     = imresize(boat2, [h w]);
 
 % let's convert images to double
 boat1 = double(boat1)/255;
@@ -108,19 +108,22 @@ d    = dir('../Data/*.jpg'); % the dir command retruns an M-by-1 structure with
 nImg = length(d); % 'length' is like the 'size' command but for vectors
 
 for ii = 1:nImg
-    img = imread(d(ii).name);
+    img = imread(fullfile('../Data',d(ii).name));
     
-    
-    R = squeeze(img(:,:,1));
-    G = squeeze(img(:,:,2));
-    B = squeeze(img(:,:,3));
-   
-    % swap colors
-    swap_img = cat(3, G, B, R);
-    figure(1)
-    imagesc(img); axis image; axis off;
-    figure(2)
-    imagesc(swap_img); axis image; axis off;
-    pause; % the pause command expects a keyboard input for the program to resume
+    siz = size(img);
+    if length(siz)>2
+        
+        R = squeeze(img(:,:,1));
+        G = squeeze(img(:,:,2));
+        B = squeeze(img(:,:,3));
+        
+        % swap colors
+        swap_img = cat(3, G, B, R);
+        figure(1)
+        imagesc(img); axis image; axis off;
+        figure(2)
+        imagesc(swap_img); axis image; axis off;
+        pause; % the pause command expects a keyboard input for the program to resume
+    end
 end
 
